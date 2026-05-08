@@ -9,6 +9,7 @@ import { pulseras, Pulsera, CartItem } from '@/data/pulseras';
 export default function Home() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
 
   // Cargar carrito del localStorage
@@ -62,15 +63,16 @@ export default function Home() {
     setTimeout(() => {
       setOrderComplete(false);
       setShowCheckout(false);
+      setShowCartModal(false);
     }, 3000);
   };
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-lg shadow-2xl p-8 text-center max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-black flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-md border-2 border-cyan-400">
           <div className="text-6xl mb-4">✨</div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">¡Compra Confirmada!</h1>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-magenta-500 to-cyan-500 bg-clip-text text-transparent mb-2">¡Compra Confirmada!</h1>
           <p className="text-gray-600 mb-4">Gracias por tu compra Martina 💕</p>
           <p className="text-sm text-gray-500">Redireccionando...</p>
         </div>
@@ -79,59 +81,75 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-black">
       {/* Header */}
-      <header className="bg-gradient-to-r from-pink-400 to-purple-400 text-white py-6 px-4 shadow-lg">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold">✨ Siempre a la Moda ✨</h1>
-          <p className="text-pink-100 mt-1">Pulseras hermosas para cada momento</p>
+      <header className="bg-gradient-to-r from-magenta-600 via-purple-600 to-cyan-600 text-white py-6 px-4 shadow-2xl border-b-4 border-cyan-400">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-4xl font-bold drop-shadow-lg">✨ Siempre a la Moda ✨</h1>
+            <p className="text-cyan-100 mt-1">Pulseras electrizantes para cada momento</p>
+          </div>
+          <button
+            onClick={() => setShowCartModal(true)}
+            className="relative bg-gradient-to-r from-cyan-400 to-lime-400 text-black px-6 py-3 rounded-full font-bold text-lg hover:from-cyan-300 hover:to-lime-300 transition transform hover:scale-110 shadow-lg"
+          >
+            🛍️ Carrito ({cartItems.length})
+          </button>
         </div>
       </header>
 
       {/* Main */}
       <main className="max-w-7xl mx-auto py-8 px-4">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Productos */}
-          <div className="lg:col-span-2">
-            {!showCheckout ? (
-              <>
-                <h2 className="text-3xl font-bold text-gray-800 mb-6">Nuestras Pulseras</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {pulseras.map(producto => (
-                    <ProductCard
-                      key={producto.id}
-                      product={producto}
-                      onAddToCart={addToCart}
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <Checkout
-                items={cartItems}
-                onConfirm={handleConfirmOrder}
-                onBack={() => setShowCheckout(false)}
-              />
-            )}
-          </div>
+        {!showCheckout ? (
+          <>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-magenta-400 to-cyan-400 bg-clip-text text-transparent mb-6">Nuestras Pulseras</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pulseras.map(producto => (
+                <ProductCard
+                  key={producto.id}
+                  product={producto}
+                  onAddToCart={addToCart}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <Checkout
+            items={cartItems}
+            onConfirm={handleConfirmOrder}
+            onBack={() => setShowCheckout(false)}
+          />
+        )}
+      </main>
 
-          {/* Carrito */}
-          <div className="lg:col-span-1 h-fit">
-            {!showCheckout && (
+      {/* Modal Carrito */}
+      {showCartModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4 z-50">
+          <div className="bg-gradient-to-br from-purple-900 to-violet-900 rounded-2xl shadow-2xl max-w-2xl w-full border-2 border-cyan-400 relative">
+            <button
+              onClick={() => setShowCartModal(false)}
+              className="absolute top-4 right-4 text-cyan-400 hover:text-magenta-400 text-3xl font-bold"
+            >
+              ✕
+            </button>
+            <div className="p-8">
               <Cart
                 items={cartItems}
                 onRemove={removeFromCart}
                 onQuantityChange={updateQuantity}
-                onCheckout={handleCheckout}
+                onCheckout={() => {
+                  handleCheckout();
+                  setShowCartModal(false);
+                }}
               />
-            )}
+            </div>
           </div>
         </div>
-      </main>
+      )}
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white text-center py-6 mt-12">
-        <p className="text-gray-400">© 2025 Siempre a la Moda - Tienda Online</p>
+      <footer className="bg-black text-center py-6 mt-12 border-t-2 border-cyan-400">
+        <p className="text-cyan-400">© 2025 Siempre a la Moda - Tienda Online ⚡</p>
       </footer>
     </div>
   );

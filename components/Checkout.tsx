@@ -36,30 +36,30 @@ export default function Checkout({ items, onConfirm, onBack }: CheckoutProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Checkout</h2>
+    <div className="bg-gradient-to-br from-purple-800 to-violet-800 rounded-2xl shadow-2xl p-8 max-w-3xl mx-auto border-2 border-cyan-400">
+      <h2 className="text-4xl font-bold bg-gradient-to-r from-magenta-400 to-cyan-400 bg-clip-text text-transparent mb-8">⚡ Checkout</h2>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Resumen */}
         <div>
-          <h3 className="font-bold text-lg text-gray-800 mb-4">Resumen de Compra</h3>
-          <div className="bg-pink-50 rounded-lg p-4 space-y-2 mb-4">
+          <h3 className="font-bold text-xl text-cyan-300 mb-4">📋 Resumen de Compra</h3>
+          <div className="bg-gradient-to-br from-magenta-500/10 to-cyan-500/10 rounded-lg p-4 space-y-2 mb-4 border-2 border-magenta-500/50">
             {items.map(item => (
-              <div key={item.id} className="flex justify-between text-sm">
+              <div key={item.id} className="flex justify-between text-sm text-cyan-200">
                 <span>{item.nombre} x{item.cantidad}</span>
-                <span>${(item.precio * item.cantidad).toLocaleString('es-AR')}</span>
+                <span className="text-magenta-300">${(item.precio * item.cantidad).toLocaleString('es-AR')}</span>
               </div>
             ))}
-            <div className="border-t-2 pt-2 mt-4 flex justify-between font-bold text-lg">
+            <div className="border-t-2 border-cyan-500/50 pt-2 mt-4 flex justify-between font-bold text-lg text-cyan-300">
               <span>Total:</span>
-              <span className="text-pink-600">${total.toLocaleString('es-AR')}</span>
+              <span className="bg-gradient-to-r from-magenta-400 to-lime-400 bg-clip-text text-transparent">${total.toLocaleString('es-AR')}</span>
             </div>
           </div>
         </div>
 
         {/* Formulario */}
         <div>
-          <h3 className="font-bold text-lg text-gray-800 mb-4">Datos de Entrega</h3>
+          <h3 className="font-bold text-xl text-cyan-300 mb-4">📬 Datos de Entrega</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -67,7 +67,7 @@ export default function Checkout({ items, onConfirm, onBack }: CheckoutProps) {
               placeholder="Nombre completo"
               value={formData.nombre}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="w-full px-4 py-3 bg-purple-700 border-2 border-magenta-500 rounded-lg text-cyan-100 placeholder-cyan-300/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
               required
             />
             <input
@@ -76,7 +76,7 @@ export default function Checkout({ items, onConfirm, onBack }: CheckoutProps) {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="w-full px-4 py-3 bg-purple-700 border-2 border-magenta-500 rounded-lg text-cyan-100 placeholder-cyan-300/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
               required
             />
             <input
@@ -85,7 +85,7 @@ export default function Checkout({ items, onConfirm, onBack }: CheckoutProps) {
               placeholder="Teléfono"
               value={formData.telefono}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="w-full px-4 py-3 bg-purple-700 border-2 border-magenta-500 rounded-lg text-cyan-100 placeholder-cyan-300/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
               required
             />
             <textarea
@@ -93,23 +93,23 @@ export default function Checkout({ items, onConfirm, onBack }: CheckoutProps) {
               placeholder="Dirección de entrega"
               value={formData.direccion}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 h-20 resize-none"
+              className="w-full px-4 py-3 bg-purple-700 border-2 border-magenta-500 rounded-lg text-cyan-100 placeholder-cyan-300/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 h-20 resize-none"
               required
             />
 
             <div className="space-y-2 pt-4">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-400 to-green-500 text-white py-3 rounded-lg hover:from-green-500 hover:to-green-600 transition font-bold"
+                className="w-full bg-gradient-to-r from-lime-400 via-cyan-400 to-magenta-400 text-black py-3 rounded-lg hover:from-lime-300 hover:via-cyan-300 hover:to-magenta-300 transition font-bold text-lg shadow-lg hover:shadow-lime-500/50 transform hover:scale-105"
               >
                 ✓ Confirmar Compra
               </button>
               <button
                 type="button"
                 onClick={onBack}
-                className="w-full bg-gray-300 text-gray-800 py-3 rounded-lg hover:bg-gray-400 transition font-bold"
+                className="w-full bg-purple-600 border-2 border-cyan-400 text-cyan-300 py-3 rounded-lg hover:bg-purple-700 hover:border-magenta-400 transition font-bold"
               >
-                ← Volver al Carrito
+                ← Volver
               </button>
             </div>
           </form>

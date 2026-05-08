@@ -9,22 +9,22 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-      <div className="bg-gradient-to-br from-pink-100 to-purple-100 h-48 flex items-center justify-center text-6xl">
+    <div className="bg-gradient-to-br from-purple-800 to-violet-800 rounded-2xl shadow-2xl overflow-hidden hover:shadow-cyan-500/50 transition transform hover:scale-105 border-2 border-magenta-500/50 hover:border-cyan-400">
+      <div className="bg-gradient-to-br from-magenta-500/20 via-purple-500/20 to-cyan-500/20 h-48 flex items-center justify-center text-6xl border-b-2 border-cyan-400">
         {product.imagen}
       </div>
-      <div className="p-4">
-        <h3 className="font-bold text-lg text-gray-800 mb-1">{product.nombre}</h3>
-        <p className="text-sm text-gray-600 mb-2">{product.color}</p>
-        <p className="text-sm text-gray-700 mb-4">{product.descripcion}</p>
+      <div className="p-6">
+        <h3 className="font-bold text-lg text-cyan-300 mb-1">{product.nombre}</h3>
+        <p className="text-sm text-magenta-300 mb-2">{product.color}</p>
+        <p className="text-sm text-cyan-100 mb-4">{product.descripcion}</p>
         
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-pink-600">${product.precio}</span>
+          <span className="text-3xl font-bold bg-gradient-to-r from-magenta-400 to-lime-400 bg-clip-text text-transparent">${product.precio}</span>
           <button
             onClick={() => onAddToCart(product)}
-            className="bg-gradient-to-r from-pink-400 to-purple-400 text-white px-4 py-2 rounded-full hover:from-pink-500 hover:to-purple-500 transition font-semibold text-sm"
+            className="bg-gradient-to-r from-cyan-400 via-magenta-400 to-lime-400 text-black px-4 py-2 rounded-full hover:from-cyan-300 hover:via-magenta-300 hover:to-lime-300 transition font-bold text-sm shadow-lg hover:shadow-cyan-500/50 transform hover:scale-110"
           >
-            + Carrito
+            ⚡ +Carrito
           </button>
         </div>
       </div>
